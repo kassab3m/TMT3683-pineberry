@@ -1,0 +1,8 @@
+[dir="ltr"] .mdk-header-layout > .mdk-header {
+    position: relative!important;
+    /* padding: 0!important; */
+}
+
+[dir="ltr"] .mdk-header-layout__content {
+    padding: 0!important;
+}

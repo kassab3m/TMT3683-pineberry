@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lecturer | Dashboard</title>
+
+    <!-- Prevent the demo from appearing in search engines -->
+    <meta name="robots" content="noindex">
+
+    <!-- Material Design Icons -->
+    <link type="text/css" href="css/material-icons.css" rel="stylesheet">
+
+    <!-- App CSS -->
+    <link type="text/css" href="css/app.css" rel="stylesheet">
+    <link type="text/css" href="css/my.css" rel="stylesheet">
+
+</head>
+
+<body class="layout-navbar-mini-fixed-bottom">
+
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+        <!-- Header -->
+
+        <div id="header" class="mdk-header bg-white js-mdk-header mb-0" data-effects=" blend-background" data-fixed data-condenses>
+            <div class="mdk-header__content">
+
+                <div class="navbar navbar-expand-sm navbar-white bg-white pr-0 pr-md-16pt" id="default-navbar" data-primary>
+
+                    <!-- Navbar toggler -->
+                    <button class="navbar-toggler navbar-toggler-right d-block d-md-none" type="button" data-toggle="sidebar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Navbar Brand -->
+                    <a href="index.html" class="navbar-brand">
+                        <i class="material-icons">school</i>
+                    </a>
+                    <form class="search-form search-form--white search-form-courses d-none d-md-flex" action="library-filters.html">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
+                    </form>
+                    <!-- Main Navigation -->
+                    <nav class="nav navbar-nav ml-auto flex-nowrap">
+                        <div class="nav-item dropdown d-sm-flex ml-16pt">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                <img width="32" height="32" class="rounded-circle" src="imgs/woman-5.jpg" alt="student" />
+                                <p class=" nav-item active mr-2 ml-2">Lecturer</p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-header"><strong>Student</strong></div>
+                                <a class="dropdown-item" href="student-attendance.html">Add Attendance</a>
+                                <a class="dropdown-item" href="student-vote.html">Add Vote</a>
+                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-header"><strong>Lecturer</strong></div>
+                                <a class="dropdown-item" href="signup.html">Sign Up</a>
+                                <a class="dropdown-item" href="index.html">Login</a>
+                                <a class="dropdown-item" href="lecturer-dashboard.html">Create Attendance/Vote</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- // END Main Navigation -->
+                </div>
+            </div>
+        </div>
+        <!-- // END Header -->
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content page-content ">
+
+            <div class="bg-gradient-primary border-bottom-white py-32pt">
+                <div class="container d-flex flex-column flex-md-row align-items-center text-center text-md-left">
+                    <div class="flex mb-32pt mb-md-0">
+                        <h2 class="text-white mb-2">Create Attendance/Vote List</h2>
+                        <div class="list-group list-group-form col-lg-9 float-left" style="padding-right: 0;">
+                            <div class="list-group-item">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-3">List title</label>
+                                    <div class="col-sm-9">
+                                        <input id="matric" type="text" class="form-control" placeholder="please type list title here...">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-0">
+                                    <label class="col-form-label col-sm-3">Type</label>
+                                    <div class="col-sm-9">
+                                        <div class="custom-controls-stacked">
+                                            <div class="custom-control custom-radio">
+                                                <input id="radioStacked1" value="att" name="radio-stacked" type="radio" class="custom-control-input">
+                                                <label for="radioStacked1" class="custom-control-label">Attendance</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input id="radioStacked2" value="vt" name="radio-stacked" type="radio" class="custom-control-input">
+                                                <label for="radioStacked2" class="custom-control-label">Vote</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="list-group-item"> -->
+                                <div id="alertError" class="alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
+                                    <i class="material-icons text-white mr-3">check_circle</i>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <strong>Error - </strong> Creation is not successful!
+                                </div>
+                            <!-- </div> -->
+                            <!-- <div class="list-group-item"> -->
+                                <div class="alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
+                                    <i class="material-icons text-white mr-3">check_circle</i>
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <strong>Success - </strong> Creation is successful!
+                                </div>
+                            <!-- </div> -->
+                        </div>
+                        <div class="col-lg-2 float-left pt-3 pb-2">
+                            <a id="checkIn" href="javascript: void(0)" class="btn btn-outline-white" >Create</a>
+                   <!-- is-loading -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container page__container mt-4">
+                <div class="form-group col-lg-8 m-auto">
+                    <select id="custom-select" class="form-control custom-select mb-0 bg-white card ">
+                        <option selected>Show Attendance List or Vote List</option>
+                        <option value="1">Attendance</option>
+                        <option value="2">Vote</option>
+                    </select>
+                </div>
+            </div>
+
+        <div id="attList" class="container page__container page-section">
+            <h4>Attendance List</h4>
+            <div class="card mb-32pt">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg">
+
+                            <div class="table-responsive" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+                                <div class="search-form search-form--light mb-3">
+                                    <input type="text" class="form-control search" placeholder="Search">
+                                    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+                                </div>
+
+                                <table class="table table-flush">
+                                    <thead>
+                                        <tr>
+                                            <th>List title</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody" class="list" id="search">
+                                        <tr>
+                                            <td>
+                                                <span class="js-lists-values-employee-name"><a href="student-attendance.html">Attendance List #1</a></span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-accent">
+                                                  <i class="material-icons">delete</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="js-lists-values-employee-name"><a href="student-attendance.html">Attendance List #2</a></span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-accent">
+                                                  <i class="material-icons">delete</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- End Table -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end attendance lists -->
+
+        <div id="vtList" class="container page__container page-section">
+            <h4>Vote List</h4>
+            <div class="card mb-32pt">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg">
+
+                            <div class="table-responsive" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+                                <div class="search-form search-form--light mb-3">
+                                    <input type="text" class="form-control search" placeholder="Search">
+                                    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+                                </div>
+
+                                <table class="table table-flush">
+                                    <thead>
+                                        <tr>
+                                            <th>List title</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBodyVt" class="list" id="search">
+                                        <tr>
+                                            <td>
+                                                <span class="js-lists-values-employee-name"><a href="student-vote.html">Vote List #1</a></span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-accent">
+                                                  <i class="material-icons">delete</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="js-lists-values-employee-name"><a href="student-vote.html#">Vote List #2</a></span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-accent">
+                                                  <i class="material-icons">delete</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- End Table -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end vote lists -->
+
+
+            <div class="js-fix-footer bg-white border-top-2">
+                <div class="bg-footer page-section py-lg-32pt">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg text-md-right">
+                                <p class="text-white text-center mb-0">Made with ❤️ By PineBerry Team.</p>
+                                <p class="text-white text-center mb-0">Mahmoud [68848] - Jonita [66305] - Theva [68754] - Emmy [65881] - Aqil [66790]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // END Header Layout Content -->
+    </div>
+    <!-- // END Header Layout -->
+
+    <!-- jQuery -->
+    <script src="vendor/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="vendor/popper.min.js"></script>
+    <script src="vendor/bootstrap.min.js"></script>
+
+    <!-- DOM Factory -->
+    <script src="vendor/dom-factory.js"></script>
+
+    <!-- MDK -->
+    <script src="vendor/material-design-kit.js"></script>
+
+    <!-- App JS -->
+    <script src="js/app.js"></script>
+
+    <!-- Highlight.js -->
+    <script src="js/hljs.js"></script>
+    <!-- List.js -->
+    <script src="vendor/list.min.js"></script>
+    <script src="js/list.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+      $("#checkIn").click(function(){
+          $(this).addClass('is-loading');
+          var radio = $("input[name=radio-stacked]:checked").val();
+          console.log( radio);
+
+          var matric = document.getElementById('matric').value;
+          if (radio == 'att') {
+              // console.log("matric: " + matric + fullDate);
+              var row = "<tr><td> <span class='js-lists-values-employee-name'><a href='student-attendance.html'>"+matric+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
+              $("#tableBody").append(row);
+
+              setTimeout(function (){
+                  $("#checkIn").removeClass('is-loading');
+                  $("#alertError").fadeOut();
+                  // console.log('remove');
+              }, 1000); // How long do you want the delay to be (in milliseconds)?
+          }else if (radio == 'vt') {
+              var row = "<tr><td> <span class='js-lists-values-employee-name'>"+matric+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
+              $("#tableBodyVt").append(row);
+
+              setTimeout(function (){
+                  $("#checkIn").removeClass('is-loading');
+                  $("#alertError").fadeOut();
+                  // console.log('remove');
+              }, 1000); // How long do you want the delay to be (in milliseconds)?
+          }
+
+          var select = $( "#custom-select" ).val();
+          console.log(select);
+      }); // end onclick
+
+      $('#custom-select').on('change', function() {
+          var val = $(this).val();
+          if(val == 1) {
+              $('#vtList').addClass('d-none');
+              $('#attList').removeClass('d-none');
+          }else if(val ==2) {
+              $('#attList').addClass('d-none');
+              $('#vtList').removeClass('d-none');
+          }
+          console.log($(this).val());
+        });
+    });
+
+    function formatAMPM(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
+</script>
+</body>
+
+</html>
