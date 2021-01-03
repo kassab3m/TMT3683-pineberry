@@ -80,21 +80,21 @@
                                 <div class="form-group row mb-0">
                                     <label class="col-form-label col-sm-3">Option Name</label>
                                     <div class="col-sm-9">
-                                        <input id="matric" type="text" class="form-control" placeholder="please enter your matric/name here...">
+                                        <input id="matric" type="text" class="form-control" placeholder="please enter voting option name here...">
                                     </div>
                                 </div>
                             </div>
                             <!-- <div class="list-group-item"> -->
-                                <div id="alertError" class="alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
+                                <div id="alertError" class="d-none alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
                                     <i class="material-icons text-white mr-3">check_circle</i>
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
-                                  <strong>Error - </strong> creating new voting option is not successful!
+                                  <strong>Error - </strong> please type voting option or scroll down to vote!
                                 </div>
                             <!-- </div> -->
                             <!-- <div class="list-group-item"> -->
-                                <div class="alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
+                                <div id="alertSuccess" class="d-none alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
                                     <i class="material-icons text-white mr-3">check_circle</i>
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -269,15 +269,6 @@
     </div>
     <!-- // END Header Layout -->
 
-    <!-- App Settings FAB -->
-    <div id="app-settings">
-        <app-settings theme-active="blue-light" :theme-location="{
-      'blue-light': 'http://tutorio-bootstrap.frontendmatter.com/student-edit-account-password.html',
-      'blue-dark': 'http://tutorio-dark.frontendmatter.com/student-edit-account-password.html',
-      'teal-light': 'http://tutorio-teal.frontendmatter.com/student-edit-account-password.html',
-      'teal-dark': 'http://tutorio-teal-dark.frontendmatter.com/student-edit-account-password.html'
-    }" sidebar-variant="bg-transparent border-0"></app-settings>
-    </div>
     <!-- jQuery -->
     <script src="vendor/jquery.min.js"></script>
 
@@ -309,28 +300,42 @@ $(document).ready(function(){
       $(this).addClass('is-loading');
 
       var matric = document.getElementById('matric').value;
-      var d = new Date();
-      var fullDate = formatAMPM(new Date) + ' ' +d.getDate()+ '-' +d.getMonth()+ '-' + d.getFullYear();
-      console.log("matric: " + matric + fullDate);
-      var num = 14;
-      var row = "<div class=\"col-lg-6 col-sm-6 card-group-row__col\"><div class=\"card card-group-row__card text-center o-hidden\"><span class=\"corner-ribbon corner-ribbon--default-right-top corner-ribbon--shadow bg-primary text-white\">"+num+"</span><div class=\"card-body d-flex flex-column\"><h4 class=\"mb-8pt\">"+matric+"</h4><div class=\"card-footer\"><div class=\"form-group row pr-3 pl-3\"><input id=\"matric\" type=\"text\" class=\"form-control\" placeholder=\"please enter your matric/name here...\"></div><a href=\"javascript: void(0)\" class=\"addVt btn btn-accent\">Add Vote</a></div><div class=\"card-footer table-responsive\" data-toggle=\"lists\" data-lists-values='[\"js-lists-values-employee-name\"]'><table class=\"table table-flush\"><thead><tr><th>Name/Matric</th><th>Time</th></tr></thead><tbody id=\"tableBody\" class=\"list\" id=\"search\"><tr><td><span class=\"js-lists-values-employee-name\">Kalum Atherton</span></td><td class=\"\">9:00 AM 20-12-2020</td></tr><tr><td><span class=\"js-lists-values-employee-name\">test user</span></td><td class=\"\">9:15 AM 15-12-2020</td></tr></tbody></table></div></div></div></div>";
+      if (matric == "") { // empty
+          setTimeout(function (){
+              $("#checkIn").removeClass('is-loading');
+              $("#alertError").fadeIn("slow");
+              $("#alertError").removeClass("d-none");
+          }, 1000); // How long do you want the delay to be (in milliseconds)?
+      }else {
+          var d = new Date();
+          var fullDate = formatAMPM(new Date) + ' ' +d.getDate()+ '-' +d.getMonth()+ '-' + d.getFullYear();
+          // console.log("matric: " + matric + fullDate);
+          var num = 14;
+          var row = "<div class=\"col-lg-6 col-sm-6 card-group-row__col\"><div class=\"card card-group-row__card text-center o-hidden\"><span class=\"corner-ribbon corner-ribbon--default-right-top corner-ribbon--shadow bg-primary text-white\">"+num+"</span><div class=\"card-body d-flex flex-column\"><h4 class=\"mb-8pt\">"+matric+"</h4><div class=\"card-footer\"><div class=\"form-group row pr-3 pl-3\"><input id=\"matric\" type=\"text\" class=\"form-control\" placeholder=\"please enter your matric/name here...\"></div><a href=\"javascript: void(0)\" class=\"addVt btn btn-accent\">Add Vote</a></div><div class=\"card-footer table-responsive\" data-toggle=\"lists\" data-lists-values='[\"js-lists-values-employee-name\"]'><table class=\"table table-flush\"><thead><tr><th>Name/Matric</th><th>Time</th></tr></thead><tbody id=\"tableBody\" class=\"list\" id=\"search\"><tr><td><span class=\"js-lists-values-employee-name\">Kalum Atherton</span></td><td class=\"\">9:00 AM 20-12-2020</td></tr><tr><td><span class=\"js-lists-values-employee-name\">test user</span></td><td class=\"\">9:15 AM 15-12-2020</td></tr></tbody></table></div></div></div></div>";
 
-      $("#votingList").append(row);
+          $("#votingList").append(row);
 
-      setTimeout(function (){
-          $("#checkIn").removeClass('is-loading');
-          $("#alertError").fadeOut();
-          console.log('remove');
-      }, 1000); // How long do you want the delay to be (in milliseconds)?
-      num++;
+          setTimeout(function (){
+              $("#checkIn").removeClass('is-loading');
+              $("#alertSuccess").fadeIn("slow");
+              $("#alertSuccess").removeClass("d-none");
+          }, 1000); // How long do you want the delay to be (in milliseconds)?
+          num++;
+      }
+
   });
   $('.addVt').on('click', function(e) {
-      console.log('test');
-      var element = $(e.target).parent().parent().find('#tableBody');
-      var matric = $(e.target).parent().parent().find('#matric');
-      var tr = "<tr><td><span class='js-lists-values-employee-name'>"+ matric.val() +"</span></td> <td>"+fullDate+"</td></tr>"
-      console.log(element);
-      element.append(tr);
+      // console.log('test');
+      $(this).addClass("is-loading");
+      setTimeout(function (){
+
+          var element = $(e.target).parent().parent().find('#tableBody');
+          var matric = $(e.target).parent().parent().find('#matric');
+          var tr = "<tr><td><span class='js-lists-values-employee-name'>"+ matric.val() +"</span></td> <td>"+fullDate+"</td></tr>"
+          // console.log(element);
+          element.append(tr);
+          $('.addVt').removeClass("is-loading");
+      }, 1000); // How long do you want the delay to be (in milliseconds)?
     });
 });
 

@@ -16,7 +16,14 @@
     <!-- App CSS -->
     <link type="text/css" href="css/app.css" rel="stylesheet">
     <link type="text/css" href="css/my.css" rel="stylesheet">
-
+    <style media="screen">
+        .list_link{
+            color: #3287db!important;
+        }
+        .list_link:hover{
+            color: rgba(15,18,20,.7)!important;
+        }
+    </style>
 </head>
 
 <body class="layout-navbar-mini-fixed-bottom">
@@ -80,7 +87,7 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-sm-3">List title</label>
                                     <div class="col-sm-9">
-                                        <input id="matric" type="text" class="form-control" placeholder="please type list title here...">
+                                        <input id="list_name" type="text" class="form-control" placeholder="please type list title here...">
                                     </div>
                                 </div>
                                 <div class="form-group row mb-0">
@@ -88,7 +95,7 @@
                                     <div class="col-sm-9">
                                         <div class="custom-controls-stacked">
                                             <div class="custom-control custom-radio">
-                                                <input id="radioStacked1" value="att" name="radio-stacked" type="radio" class="custom-control-input">
+                                                <input id="radioStacked1" value="att" name="radio-stacked" type="radio" class="custom-control-input" checked>
                                                 <label for="radioStacked1" class="custom-control-label">Attendance</label>
                                             </div>
                                             <div class="custom-control custom-radio">
@@ -100,16 +107,16 @@
                                 </div>
                             </div>
                             <!-- <div class="list-group-item"> -->
-                                <div id="alertError" class="alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
+                                <div id="alertError" class="d-none alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
                                     <i class="material-icons text-white mr-3">check_circle</i>
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
-                                  <strong>Error - </strong> Creation is not successful!
+                                  <strong>Error - </strong> <span id="error_msg">Creation is not successful!</span>
                                 </div>
                             <!-- </div> -->
                             <!-- <div class="list-group-item"> -->
-                                <div class="alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
+                                <div id="alertSuccess" class="d-none alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
                                     <i class="material-icons text-white mr-3">check_circle</i>
                                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -125,17 +132,17 @@
                     </div>
                 </div>
             </div>
-            <div class="container page__container mt-4">
+            <div class="container page__container mt-4 mb-4">
                 <div class="form-group col-lg-8 m-auto">
                     <select id="custom-select" class="form-control custom-select mb-0 bg-white card ">
                         <option selected>Show Attendance List or Vote List</option>
-                        <option value="1">Attendance</option>
+                        <option value="1" >Attendance</option>
                         <option value="2">Vote</option>
                     </select>
                 </div>
             </div>
 
-        <div id="attList" class="container page__container page-section">
+        <div id="attList" class="d-none container page__container page-section">
             <h4>Attendance List</h4>
             <div class="card mb-32pt">
                 <div class="card-body">
@@ -158,7 +165,7 @@
                                     <tbody id="tableBody" class="list" id="search">
                                         <tr>
                                             <td>
-                                                <span class="js-lists-values-employee-name"><a href="student-attendance.html">Attendance List #1</a></span>
+                                                <span class="js-lists-values-employee-name"><a class="list_link" href="student-attendance.html">Attendance List #1</a></span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-accent">
@@ -168,7 +175,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <span class="js-lists-values-employee-name"><a href="student-attendance.html">Attendance List #2</a></span>
+                                                <span class="js-lists-values-employee-name"><a class="list_link" href="student-attendance.html">Attendance List #2</a></span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-accent">
@@ -185,7 +192,7 @@
             </div>
         </div> <!-- end attendance lists -->
 
-        <div id="vtList" class="container page__container page-section">
+        <div id="vtList" class="d-none container page__container page-section">
             <h4>Vote List</h4>
             <div class="card mb-32pt">
                 <div class="card-body">
@@ -208,7 +215,7 @@
                                     <tbody id="tableBodyVt" class="list" id="search">
                                         <tr>
                                             <td>
-                                                <span class="js-lists-values-employee-name"><a href="student-vote.html">Vote List #1</a></span>
+                                                <span class="js-lists-values-employee-name"><a class="list_link" href="student-vote.html">Vote List #1</a></span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-accent">
@@ -218,7 +225,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <span class="js-lists-values-employee-name"><a href="student-vote.html#">Vote List #2</a></span>
+                                                <span class="js-lists-values-employee-name"><a class="list_link" href="student-vote.html#">Vote List #2</a></span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-accent">
@@ -281,32 +288,45 @@
       $("#checkIn").click(function(){
           $(this).addClass('is-loading');
           var radio = $("input[name=radio-stacked]:checked").val();
-          console.log( radio);
+          // console.log( radio);
 
-          var matric = document.getElementById('matric').value;
-          if (radio == 'att') {
-              // console.log("matric: " + matric + fullDate);
-              var row = "<tr><td> <span class='js-lists-values-employee-name'><a href='student-attendance.html'>"+matric+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
-              $("#tableBody").append(row);
-
+          var list_name = document.getElementById('list_name').value;
+          if (list_name=="") {
               setTimeout(function (){
                   $("#checkIn").removeClass('is-loading');
-                  $("#alertError").fadeOut();
-                  // console.log('remove');
+                  $("#error_msg").html("List name can not be empty!");
+                  $("#alertError").fadeIn("slow");
+                  $("#alertError").removeClass("d-none");
+                  // console.log("empty");
               }, 1000); // How long do you want the delay to be (in milliseconds)?
-          }else if (radio == 'vt') {
-              var row = "<tr><td> <span class='js-lists-values-employee-name'>"+matric+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
-              $("#tableBodyVt").append(row);
+          }else {
+              if (radio == 'att') {
+                  // console.log("matric: " + matric + fullDate);
+                  var row = "<tr><td> <span class='js-lists-values-employee-name'><a class='list_link' href='student-attendance.html'>"+list_name+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
+                  $("#tableBody").append(row);
 
-              setTimeout(function (){
-                  $("#checkIn").removeClass('is-loading');
-                  $("#alertError").fadeOut();
-                  // console.log('remove');
-              }, 1000); // How long do you want the delay to be (in milliseconds)?
+                  setTimeout(function (){
+                      $("#checkIn").removeClass('is-loading');
+                      $("#alertSuccess").fadeIn("slow");
+                      $("#alertSuccess").removeClass("d-none");
+                      // console.log('remove');
+                  }, 1000); // How long do you want the delay to be (in milliseconds)?
+              }else if (radio == 'vt') {
+                  var row = "<tr><td> <span class='js-lists-values-employee-name'>"+matric+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
+                  $("#tableBodyVt").append(row);
+
+                  setTimeout(function (){
+                      $("#checkIn").removeClass('is-loading');
+                      $("#alertSuccess").fadeIn("slow");
+                      $("#alertSuccess").removeClass("d-none");
+                      // console.log('remove');
+                  }, 1000); // How long do you want the delay to be (in milliseconds)?
+              }
           }
 
-          var select = $( "#custom-select" ).val();
-          console.log(select);
+
+          // var select = $( "#custom-select" ).val();
+          // console.log(select);
       }); // end onclick
 
       $('#custom-select').on('change', function() {
@@ -318,7 +338,11 @@
               $('#attList').addClass('d-none');
               $('#vtList').removeClass('d-none');
           }
-          console.log($(this).val());
+          // console.log($(this).val());
+        });
+
+        $(".btn-accent").click(function(){
+            $(this).parent().parent().addClass("d-none");
         });
     });
 

@@ -48,19 +48,27 @@
                                             <div class="form-group">
                                                 <label class="float-left" for="password">Password:</label>
                                                 <input id="password" type="password" class="form-control" placeholder="Your password ...">
-                                                <p class="text-right"><a href="reset-password.html" class="small">Forgot your password?</a></p>
+                                                <p class="text-right"><a href="javascript: void(0)" class="small">Forgot your password?</a></p>
                                             </div>
                                         </form>
-                                        <div id="alertError" class="alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
+
+                                        <div>
+                                            <p>
+                                                Use the following login details: <br/>
+                                                Email: mdm@inson<br />
+                                                Password: secret
+                                            </p>
+                                        </div>
+                                        <div id="alertError" class="d-none alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
                                             <i class="material-icons text-white mr-3">check_circle</i>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                           </button>
-                                          <strong>Error - </strong> Lecturer not found! redirect to sign up page!
+                                          <strong>Error - </strong> Invalid login details! please check again!
                                         </div>
                                     <!-- </div> -->
                                     <!-- <div class="list-group-item"> -->
-                                        <div id="alertSuccess" class="alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
+                                        <div id="alertSuccess" class="d-none alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
                                             <i class="material-icons text-white mr-3">check_circle</i>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -71,6 +79,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <a id="singIn" href="javascript: void(0)" class="btn btn-accent">Sign In</a>
+                                    <p class="text-center"><a href="signup.html" class="small">Sign up?</a></p>
+
                                 </div>
                             </div>
 
@@ -127,13 +137,23 @@
 
           $("#singIn").click(function(){
               $(this).addClass('is-loading');
+              var email = $("#email").val();
+              var password = $("#password").val();
 
               setTimeout(function (){
                   $("#singIn").removeClass('is-loading');
-                  $("#alertSuccess").fadeOut();
-                  setTimeout(function (){
-                      window.location.href = "signup.html";
-                  }, 2000); // How long do you want the delay to be (in milliseconds)?
+                  if (email == "mdm@inson" && password == "secret") {
+                      $("#alertError").addClass("d-none");
+                      $("#alertSuccess").fadeIn("slow");
+                      $("#alertSuccess").removeClass("d-none");
+                      setTimeout(function (){
+                          window.location.href = "lecturer-dashboard.html";
+                      }, 2000); // How long do you want the delay to be (in milliseconds)?
+                  }else {
+                      $("#alertError").fadeIn("slow");
+                      $("#alertError").removeClass("d-none");
+                  }
+
               }, 1000); // How long do you want the delay to be (in milliseconds)?
 
           });

@@ -58,21 +58,19 @@
                                                 <input id="password" type="password" class="form-control" placeholder="Confirm your password ...">
                                             </div>
                                         </form>
-                                        <div id="alertError" class="alert alert-dismissible bg-accent text-white border-0 m-0 fade show" role="alert">
-                                            <i class="material-icons text-white mr-3">check_circle</i>
-                                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                          <strong>Error - </strong> your Sign Up is not successful!
+                                        <div>
+                                            <p>
+                                                no details is required for this prototype! click on sign up!
+                                            </p>
                                         </div>
                                     <!-- </div> -->
                                     <!-- <div class="list-group-item"> -->
-                                        <div class="alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
+                                        <div id="alertSuccess" class="d-none alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
                                             <i class="material-icons text-white mr-3">check_circle</i>
                                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                           </button>
-                                          <strong>Sign Up successful - </strong> redirecting to dashboard!
+                                          <strong>Sign Up successful - </strong> redirecting to sign in!
                                         </div>
                                     </div>
                                 </div>
@@ -137,9 +135,10 @@
 
               setTimeout(function (){
                   $("#singIn").removeClass('is-loading');
-                  $("#alertError").fadeOut();
+                  $("#alertSuccess").fadeIn("slow");
+                  $("#alertSuccess").removeClass("d-none");
                   setTimeout(function (){
-                      window.location.href = "lecturer-dashboard.html";
+                      window.location.href = "index.html";
                   }, 2000); // How long do you want the delay to be (in milliseconds)?
               }, 1000); // How long do you want the delay to be (in milliseconds)?
           });
