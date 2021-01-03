@@ -225,7 +225,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <span class="js-lists-values-employee-name"><a class="list_link" href="student-vote.html#">Vote List #2</a></span>
+                                                <span class="js-lists-values-employee-name"><a class="list_link" href="student-vote.html">Vote List #2</a></span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-accent">
@@ -287,7 +287,6 @@
 
       $("#checkIn").click(function(){
           $(this).addClass('is-loading');
-          var radio = $("input[name=radio-stacked]:checked").val();
           // console.log( radio);
 
           var list_name = document.getElementById('list_name').value;
@@ -300,9 +299,11 @@
                   // console.log("empty");
               }, 1000); // How long do you want the delay to be (in milliseconds)?
           }else {
+              var radio = $("input[name=radio-stacked]:checked").val();
+
               if (radio == 'att') {
                   // console.log("matric: " + matric + fullDate);
-                  var row = "<tr><td> <span class='js-lists-values-employee-name'><a class='list_link' href='student-attendance.html'>"+list_name+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
+                  var row = "<tr><td> <span class='js-lists-values-employee-name'><a class='list_link' href='student-attendance.html'>"+list_name+"</a></span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
                   $("#tableBody").append(row);
 
                   setTimeout(function (){
@@ -312,7 +313,7 @@
                       // console.log('remove');
                   }, 1000); // How long do you want the delay to be (in milliseconds)?
               }else if (radio == 'vt') {
-                  var row = "<tr><td> <span class='js-lists-values-employee-name'>"+matric+"</span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
+                  var row = "<tr><td> <span class='js-lists-values-employee-name'><a class='list_link' href='student-vote.html'>"+list_name+"</a></span> </td><td><button type='button' class='btn btn-accent'><i class='material-icons'>delete</i></button></td></tr>";
                   $("#tableBodyVt").append(row);
 
                   setTimeout(function (){
