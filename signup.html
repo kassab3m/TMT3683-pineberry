@@ -58,11 +58,6 @@
                                                 <input id="password" type="password" class="form-control" placeholder="Confirm your password ...">
                                             </div>
                                         </form>
-                                        <div>
-                                            <p>
-                                                no details is required for this prototype! click on sign up!
-                                            </p>
-                                        </div>
                                     <!-- </div> -->
                                     <!-- <div class="list-group-item"> -->
                                         <div id="alertSuccess" class="d-none alert alert-dismissible bg-success text-white border-0 m-0 fade show" role="alert">
@@ -76,6 +71,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <a id="singIn" href="javascript: void(0)" class="btn btn-accent">Sign Up</a>
+                                    <p class="text-center"><a href="index.html" class="small">Sign in?</a></p>
                                 </div>
                             </div>
 
@@ -126,6 +122,8 @@
 
     <!-- App Settings (safe to remove) -->
     <script src="js/app-settings.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase.js"></script>
+    <script src="js/fb.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -133,14 +131,36 @@
           $("#singIn").click(function(){
               $(this).addClass('is-loading');
 
-              setTimeout(function (){
-                  $("#singIn").removeClass('is-loading');
-                  $("#alertSuccess").fadeIn("slow");
-                  $("#alertSuccess").removeClass("d-none");
-                  setTimeout(function (){
-                      window.location.href = "index.html";
-                  }, 2000); // How long do you want the delay to be (in milliseconds)?
-              }, 1000); // How long do you want the delay to be (in milliseconds)?
+              //setTimeout(function (){
+
+                  var email = $("#email").val();
+                  var password = $("#password").val();
+
+                  var cleanEmail = email.replace(/\./g, '');
+                  firebase.database().ref('users/' + cleanEmail).set({
+                     email: email,
+                     password: password
+                 }, function(error){
+                     if (error) {
+                         console.log("error " + error);
+                         $("#alertError").fadeIn("slow");
+                         $("#alertError").removeClass("d-none");
+                      } else {
+                          $("#singIn").removeClass('is-loading');
+                          $("#alertSuccess").fadeIn("slow");
+                          $("#alertSuccess").removeClass("d-none");
+                          setTimeout(function (){
+                              window.location.href = "index.html";
+                          }, 2000);
+                        //alert("Data saved successfully.");
+                      }
+                 });
+
+
+                  // setTimeout(function (){
+                  //     window.location.href = "index.html";
+                  // }, 2000); // How long do you want the delay to be (in milliseconds)?
+              //}, 1000); // How long do you want the delay to be (in milliseconds)?
           });
         });
 
